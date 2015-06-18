@@ -26,7 +26,7 @@ struct node {
     node* out = nullptr;
     double brlen;
     Orientation orientation;
-    std::string a = "a";
+    int id;
 };
 
 struct nodeInfo {
@@ -38,10 +38,16 @@ class InnerNode {
     infoUPtr info;
 public:
     InnerNode() {
-        for (size_t i=0; i < 3; ++i ) nodes[i] = std::make_unique<node>();
+        for (size_t i=0; i < 3; ++i ) {
+            nodes[i] = std::make_unique<node>();
+        }
+        nodes[0]->next = nodes[1].get();
+        nodes[1]->next = nodes[2].get();
+        nodes[2]->next = nodes[0].get();
     }
     node* operator[](size_t i) { return nodes[i].get(); };
     const node* operator[](size_t i) const { return nodes[i].get(); };
+    bool is_leaf() { return false; };
 };
 
 class LeafNode {
@@ -50,9 +56,11 @@ class LeafNode {
 public:
     LeafNode() {
         nodes[0] = std::make_unique<node>();
+        nodes[0]->next = nodes[0].get();
     }
     node* operator[](size_t i) { return nodes[i].get(); };
     const node* operator[](size_t i) const { return nodes[i].get(); };
+    bool is_leaf() { return true; };
 };
 
 
@@ -63,4 +71,5 @@ public:
  */
 void hookup(node* a, node* b, double length=1);
 
+void postorder(node* n);
 #endif //TREE_NODE_H
