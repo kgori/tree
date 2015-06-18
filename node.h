@@ -72,4 +72,5 @@ public:
 void hookup(node* a, node* b, double length=1);
 
 void postorder(node* n);
+void preorder(node* n);
 #endif //TREE_NODE_H

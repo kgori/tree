@@ -28,12 +28,7 @@ int main() {
     hookup(d[0], y[1], 0.2);
     hookup(x[2], y[2], 0.1);
 
-    auto _b = b[0]->next;
-    bool val{_b == b[0]};
-    std::cout << (val ? "true" : "false") << std::endl;
-    auto _n = b[0];
-    auto _c = _n->next;
-    if (_n != _c) std::cout << "it is not the same" << std::endl;
-    postorder(b[0]);
+    postorder(x[0]);
+    preorder(x[0]);
     return 0;
 };

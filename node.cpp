@@ -15,3 +15,10 @@ void postorder(node* n) {
     }
     std::cout << n->id << std::endl;
 }
+
+void preorder(node* n) {
+    std::cout << n->id << std::endl;
+    for (node* c=n->next; c != n; c=c->next) {
+        preorder(c->out);
+    }
+}
